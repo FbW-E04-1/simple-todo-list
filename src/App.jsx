@@ -16,6 +16,17 @@ const App = () => {
     inputRef.current.focus();
   }, []);
 
+  useEffect(() => {
+    let storage = localStorage.getItem('tasks');
+    let storageItem = JSON.parse(storage);
+    storageItem !== null && setTasks(storageItem);
+  }, []);
+
+
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }, [tasks]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     task.task.length > 0 && setTasks([...tasks, task]);
